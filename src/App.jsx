@@ -12,6 +12,7 @@ function App() {
   useEffect(() => {
     try {
       const storedWatchlist = localStorage.getItem("watchlist");
+      console.log("Datos en localStorage al iniciar:", storedWatchlist); // 🔍 Depuració
       if (storedWatchlist) {
         setWatchlist(JSON.parse(storedWatchlist));
       }
@@ -24,7 +25,10 @@ function App() {
   // Guardar watchlist en localStorage cada vez que cambie
   useEffect(() => {
     try {
-      localStorage.setItem("watchlist", JSON.stringify(watchlist));
+      if (watchlist.length > 0) {  // ✅ Solo guarda si hay elementos
+        localStorage.setItem("watchlist", JSON.stringify(watchlist));
+        console.log("Watchlist guardada en localStorage:", watchlist); // 🔍 Depuración
+      }
     } catch (error) {
       console.error("Error al guardar la watchlist:", error);
     }
